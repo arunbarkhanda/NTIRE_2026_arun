@@ -4,7 +4,7 @@
   - 96×96 patch size (CPU-feasible; larger patches impractical on CPU)
   - image-disjoint train/val split
   - deterministic validation noise
-  - 5 fixed val crops, 8 random train patches per image
+  - 5 fixed val crops, 8 train patches per image
   - sigmoid output
   
 """
