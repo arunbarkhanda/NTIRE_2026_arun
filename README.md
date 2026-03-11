@@ -4,9 +4,12 @@ Refiner Model: https://drive.google.com/file/d/1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ
 
 ----------------------------------------------------------------
 
-NTIRE 2026 Image Denoising Challenge\\
-Team: Variational Vision | CodaBench: arunbarkhanda\\
-Team Leader: Arun Barkhanda\\
+NTIRE 2026 Image Denoising Challenge
+
+Team: Variational Vision | CodaBench: arunbarkhanda
+
+Team Leader: Arun Barkhanda
+
 Affiliation: Clarkson University
 
 ----------------------------------------------------------------
