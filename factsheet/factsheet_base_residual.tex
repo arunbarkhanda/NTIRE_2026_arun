@@ -1,0 +1,148 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage[pagebackref,breaklinks,colorlinks]{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+
+\def\cvprPaperID{*****}
+\def\confName{CVPR}
+\def\confYear{2026}
+
+\begin{document}
+
+%%%%%%%%% TITLE
+\title{NTIRE 2026 Image Denoising ($\sigma=50$) Challenge Factsheet\\
+Two-Stage Attention U-Net with Residual Refinement}
+
+\author{
+Arun Barkhanda\\
+Department of Mathematics, Clarkson University\\
+8 Clarkson Ave, Potsdam, NY 13699\\
+{\tt\small barkhaa@clarkson.edu}
+}
+\maketitle
+
+%--------------------------------------------------------------------
+\section{Team Details}
+\begin{itemize}
+  \item \textbf{Team name:} Variational Vision
+  \item \textbf{Team leader:} Arun Barkhanda
+  \item \textbf{Address:} Department of Mathematics, Clarkson University, 8 Clarkson Ave, Potsdam, NY 13699
+  \item \textbf{Phone:} +1-315-244-4867
+  \item \textbf{Email:} barkhaa@clarkson.edu \textit{(CodaBench account: arunbarkhanda@gmail.com)}
+  \item \textbf{Team members:} Solo submission (single member)
+  \item \textbf{Team website:} N/A
+  \item \textbf{Affiliation:} Clarkson University
+  \item \textbf{CodaBench username(s):} arunbarkhanda
+  \item \textbf{Best validation phase PSNR:} 29.88
+  \item \textbf{Code \& model:} \texttt{git url}
+\end{itemize}
+
+\section{Method details}
+
+\subsection{General Method Description}
+
+We propose a two-stage denoising pipeline for RGB images corrupted by additive white Gaussian noise with standard deviation $\sigma=50$. In the first stage, an Attention U-Net predicts an initial clean image from the noisy input. In the second stage, a residual refinement network takes the base denoised image as input and predicts a corrective residual. The final restored image is obtained by adding the predicted residual to the base output and clipping intensities to the range $[0,1]$.
+
+The first stage is responsible for the main denoising process, while the second stage focuses on correcting remaining artifacts and recovering fine image structures. For full-resolution restoration, inference is performed patch-wise with overlap and Gaussian blending. In addition, self-ensemble test-time augmentation is applied to the base model.
+
+\subsection{Stage 1: Base Attention U-Net}
+
+The first-stage denoiser is an Attention U-Net inspired by the U-Net architecture~\cite{ronneberger2015unet} and attention-gated skip connections~\cite{oktay2018attention}. It follows a symmetric encoder--decoder structure with three encoder stages, one bottleneck stage, and three decoder stages.
+
+\paragraph{Encoder}
+Each encoder block contains:
+\begin{itemize}
+\item Two $3\times3$ convolutional layers
+\item Batch Normalization after each convolution
+\item GELU activation
+\item Dropout (rates: 0.05, 0.05, 0.10 for levels 1--3)
+\item $2\times2$ MaxPooling for downsampling
+\end{itemize}
+
+The number of feature channels increases as:
+\[
+64 \rightarrow 128 \rightarrow 256
+\]
+
+\paragraph{Bottleneck}
+The bottleneck consists of a convolutional block with 512 filters and dropout rate 0.15.
+
+\paragraph{Decoder}
+Each decoder stage contains:
+\begin{itemize}
+\item Upsampling by a factor of 2
+\item Attention-gated skip connection
+\item Concatenation with attended encoder features
+\item Two $3\times3$ convolutional layers with GELU activation
+\end{itemize}
+
+The final layer is a $1\times1$ convolution with sigmoid activation producing a 3-channel RGB output. Mixed precision training is used for computational efficiency, while the output layer is kept in float32 for numerical stability.
+
+\subsection{Stage 2: Residual Refinement Network}
+
+The second-stage model is a lightweight U-Net-style residual refiner. It takes the first-stage output $\hat{x}_{\text{base}}$ as input and predicts a residual correction $R(\hat{x}_{\text{base}})$. The final refined image is computed as:
+\begin{equation*}
+\hat{x}_{\text{final}} = \mathrm{clip}\big(\hat{x}_{\text{base}} + R(\hat{x}_{\text{base}}), 0, 1\big)
+\end{equation*}
+
+The residual refiner has three encoder stages, one bottleneck, and three decoder stages, with channel progression:
+\[
+32 \rightarrow 64 \rightarrow 128 \rightarrow 256
+\]
+
+Each block contains:
+\begin{itemize}
+\item Two $3\times3$ convolutional layers
+\item Batch Normalization
+\item ReLU activation
+\item Dropout (0.05, 0.05, 0.10 in encoder; 0.15 in bottleneck)
+\end{itemize}
+
+Unlike the base model, the residual refiner does not use attention gates. Its final layer is a $1\times1$ convolution with tanh activation, producing a bounded residual prediction. During training, the residual model is embedded in a wrapper so that the clipped sum of base output and residual prediction is optimized directly against the clean target.
+
+\subsection{Dataset and Training Strategy}
+
+All images are normalized to $[0,1]$. Gaussian noise with $\sigma=50/255$ is added to clean patches, and noisy inputs are clipped to $[0,1]$.
+
+\paragraph{Base model dataset}
+The base Attention U-Net is trained on the LSDIR dataset~\cite{li2023lsdir} using an image-disjoint split (80\% train / 20\% validation). For each image, eight $96\times96$ patches are extracted: one center crop, one high-texture crop selected via Laplacian-variance scoring over a $4\times4$ grid, and six random crops. Training patches are augmented with random horizontal/vertical flips and $90^\circ$ rotations. Validation uses five deterministic crops with four corners and center with fixed-seed noise generation for reproducible PSNR evaluation.
+
+\paragraph{Residual model dataset}
+The residual refiner is trained using cached pairs of base-model outputs and clean targets. Noisy patches are first passed through the pretrained base model to produce $\hat{x}_{\text{base}}$, and the resulting $(\hat{x}_{\text{base}}, x_{\text{clean}})$ pairs are stored as compressed \texttt{.npz} files to avoid repeated base-model inference.
+
+\noindent Residual training uses cached samples from the LSDIR dataset and the Describable Textures Dataset (DTD)~\cite{cimpoi14describing}, mixed in an 85\%/15\% ratio. The additional texture data improves the model’s ability to recover high-frequency structures and complex surface patterns during the residual refinement stage. LSDIR contributes four random $96\times96$ patches per image, while texture samples use center crops. Validation uses center crops only. Cache generation follows a 90\%/10\% train–validation split for both datasets.
+
+\paragraph{Training Strategy}
+The base denoiser is trained using the L1 loss (Mean Absolute Error) with the AdamW optimizer and a weight decay of $1\times10^{-5}$. The initial learning rate is set to $1\times10^{-4}$ with a batch size of 32 and a patch size of $96\times96$. Training is performed for up to 50 epochs. The learning rate is reduced by a factor of 0.5 when the validation loss plateaus (patience 5, minimum learning rate $1\times10^{-6}$). Early stopping with a patience of 15 is applied based on validation PSNR, and the final model is selected according to the highest validation PSNR.\\
+
+The second-stage residual refiner is trained using the MSE loss with the Adam optimizer. The initial learning rate is $1\times10^{-4}$ with a batch size of 64 and a patch size of $96\times96$, and training is performed for up to 50 epochs. The network predicts a residual correction applied to the base output, and the final result is computed as
+\[
+\mathrm{clip}\big(\hat{x}_{\text{base}} + R(\hat{x}_{\text{base}}), 0, 1\big),
+\]
+which is optimized directly against the clean target image. Learning rate reduction on plateau and early stopping are applied based on validation loss.
+
+\subsection{Inference}
+
+At test time, full-resolution images are processed patch-wise using $96\times96$ patches with overlap 60. Overlapping predictions are merged using a Gaussian blending window to reduce visible seams and boundary artifacts.
+
+For the base model, we apply 8-transform self-ensemble test-time augmentation. The transform set consists of four rotations (0$^\circ$, 90$^\circ$, 180$^\circ$, 270$^\circ$) and their horizontally flipped counterparts. Each transformed image is denoised independently, inverse-transformed back to the original orientation, and averaged to obtain the first-stage prediction.
+
+The averaged base result is then passed to the residual refinement model. The residual model predicts an additive correction, and the final restored image is computed by adding this correction to the base output and clipping intensities to the range $[0,1]$.
+
+%%%%%%%%% REFERENCES
+{\small
+\bibliographystyle{ieeenat_fullname}
+\bibliography{egbib}
+}
+
+\end{document}
