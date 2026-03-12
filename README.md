@@ -2,7 +2,7 @@ Base Model: https://drive.google.com/file/d/1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80/vi
 
 Refiner Model: https://drive.google.com/file/d/1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ/view?usp=sharing
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 NTIRE 2026 Image Denoising Challenge
 
@@ -12,7 +12,7 @@ Team Leader: Arun Barkhanda
 
 Affiliation: Clarkson University
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Overview
 
@@ -34,7 +34,7 @@ Inference uses:
     • Patch-based processing with overlapping windows and Gaussian blending
     • 8-way test-time augmentation (4 rotations × 2 flips)
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Repository Structure
 ```
@@ -55,43 +55,26 @@ ntire2026-variational-vision/
 └── README.md
 ```
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
-## Environment
-
-Tested on:
-    • **Lambda Labs A100** (primary): Ubuntu 22.04, TensorFlow 2.19, Keras 3, Python 3.10
-    • **MacBook Air M-series** (local testing): macOS, TensorFlow 2.x
-
-### Install dependencies
-
+## Getting Started
 ```bash
+# 1. Clone the repository
+git clone https://github.com/arunbarkhanda/NTIRE_2026_arun
+cd NTIRE_2026_arun
+
+# 2. Install dependencies
 pip install pillow "numpy<2.0" --break-system-packages
-```
-
-> TensorFlow is pre-installed on Lambda GPU instances. Verify with:
-> `python3 -c "import tensorflow as tf; print(tf.__version__)"`
-
-----------------------------------------------------------------
-
-## Download Pretrained Models
-
-The pretrained models are hosted on Google Drive. Install `gdown` if needed:
-
-```bash
 pip install gdown
-```
 
-Download models:
-
-```bash
-gdown "https://drive.google.com/file/d/1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80/view?usp=sharing"   # ntire_unet_v7.keras
-gdown "https://drive.google.com/file/d/1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ/view?usp=sharing"   # ntire_refiner_v7.1.keras
+# 3. Download pretrained models
+gdown "1SLArwrQE80"   # ntire_unet_v7.keras
+gdown "1Do8VOHrEQQ"   # ntire_refiner_v7.1.keras
 ```
 
 Place both `.keras` files in the root directory of the repository.
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Input Data Format
 
@@ -103,7 +86,7 @@ Place both `.keras` files in the root directory of the repository.
 "input_dir": "/path/to/noisy/images"
 ```
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Running Inference
 
@@ -127,7 +110,7 @@ CONFIG = {
 Then run:
 
 ```bash
-python3 inference/ntire_final_inference.py
+python3 inference/ntire_test_inference.py
 ```
 
 The script will:
@@ -137,7 +120,7 @@ The script will:
     4. Apply residual refinement
     5. Save results to both output folders
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Output
 
@@ -148,7 +131,7 @@ Two output folders are produced:
 | `denoised_base_only/` | Base Attention U-Net results |
 | `denoised_base_res/`  | Base + residual refiner results (final submission) |
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Notes
 
@@ -157,7 +140,7 @@ Two output folders are produced:
     • Global normalization (`/255`) is used throughout — per-image normalization degrades PSNR
     • All 8 TTA transforms contribute positively to PSNR
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
 ## Contact
 
