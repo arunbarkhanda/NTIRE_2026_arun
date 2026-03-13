@@ -56,6 +56,16 @@ ntire2026-variational-vision/
 ├── LICENSE
 └── README.md
 ```
+--------------------------------------------------------------------------------------------------------------
+
+## Environment
+
+Tested on:
+    • **Lambda Labs A100** (primary): Ubuntu 22.04, TensorFlow 2.19, Keras 3, Python 3.10
+    • **MacBook Air M-series** (local testing): macOS, TensorFlow 2.x
+
+> TensorFlow is pre-installed on Lambda GPU instances. Verify with:
+> `python3 -c "import tensorflow as tf; print(tf.__version__)"`
 
 --------------------------------------------------------------------------------------------------------------
 
