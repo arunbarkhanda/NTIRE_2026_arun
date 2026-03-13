@@ -39,20 +39,19 @@ Inference uses:
 --------------------------------------------------------------------------------------------------------------
 
 ## Repository Structure
+
 ```
-ntire2026-variational-vision/
+NTIRE_2026_arun/
 ├── factsheet/
 │   ├── NTIRE_2026_Image_Denoising.pdf               # Compiled factsheet (PDF)
 │   └── factsheet_base_residual.tex                  # LaTeX source file
-│
-├── inference/
-│   └── ntire_test_inference.py                      # Main inference script (base-only + base+residual)
 │
 ├── training/
 │   ├── base_denoise.py                              # Training script for base Attention U-Net
 │   ├── precompute_den1_for_residual_training.py     # Precomputes base model outputs for residual training
 │   └── train_base_residual.py                       # Training script for residual refinement network
 │
+├── ntire_test_inference.py                          # Main inference script
 ├── LICENSE
 └── README.md
 ```
@@ -76,12 +75,11 @@ git clone https://github.com/arunbarkhanda/NTIRE_2026_arun
 cd NTIRE_2026_arun
 
 # 2. Install dependencies
-pip install pillow "numpy<2.0" --break-system-packages
-pip install gdown
+pip install tensorflow pillow numpy gdown
 
 # 3. Download pretrained models
-gdown "1SLArwrQE80"   # ntire_unet_v7.keras
-gdown "1Do8VOHrEQQ"   # ntire_refiner_v7.1.keras
+gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80"   # ntire_unet_v7.keras (base model)
+gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"   # ntire_refiner_v7.1.keras (refiner model)
 ```
 
 Place both `.keras` files in the root directory of the repository.
@@ -102,17 +100,17 @@ Place both `.keras` files in the root directory of the repository.
 
 ## Running Inference
 
-Update the paths in the `CONFIG` section at the top of `inference/ntire_final_inference.py` to match your local setup:
+Update the paths in the `CONFIG` section at the top of `ntire_test_inference.py` to match your local setup:
 
 ```python
 CONFIG = {
     "base_model_path":     "ntire_unet_v7.keras",
     "residual_model_path": "ntire_refiner_v7.1.keras",
     "input_dir":           "/path/to/noisy/images",
-    "output_base_only":    "denoised_base_only",   # base model results
-    "output_base_res":     "denoised_base_res",    # base + residual results
+    "output_base_res":     "denoised_base_res",
     "patch_size":  96,
     "overlap":     60,
+    "batch_size":  64,
     "use_tta":     True,
     "tta_mode":    8,
     "use_xla":     True,    # set False on CPU or Apple Silicon Mac
@@ -122,7 +120,7 @@ CONFIG = {
 Then run:
 
 ```bash
-python3 inference/ntire_test_inference.py
+python3 ntire_test_inference.py
 ```
 
 The script will:
@@ -140,7 +138,6 @@ Two output folders are produced:
 
 | Folder | Contents |
 |--------|----------|
-| `denoised_base_only/` | Base Attention U-Net results |
 | `denoised_base_res/`  | Base + residual refiner results (final submission) |
 
 --------------------------------------------------------------------------------------------------------------
