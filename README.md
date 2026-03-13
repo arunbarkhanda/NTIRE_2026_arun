@@ -156,4 +156,4 @@ For questions regarding reproduction of results:
 
 **Arun Barkhanda**  
 Clarkson University  
-barkhaa@clarkson.edu
+barkhaa@clarkson.edu | arunbarkhanda@gmail.com
