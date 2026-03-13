@@ -10,11 +10,6 @@ Pipeline:
   → wrapper: den2 = clip(den1 + res_model(den1), 0, 1)
   → MSE loss vs clean
   → save res_model only
-
-Inference (unchanged):
-  den1  = base_model(noisy)
-  r     = res_model(den1)
-  final = clip(den1 + r, 0, 1)
 """
 
 import os
@@ -70,10 +65,10 @@ CONFIG = {
     # Training — A100 tuned
     "batch_size":           64,
     "epochs":               50,
-    "learning_rate":        2e-3,
+    "learning_rate":        1e-4,
     "shuffle_buf":          16000,
 
-    # 85% LSDIR / 15% texture mixing (mirrors precompute split)
+    # 85% LSDIR / 15% texture mixing
     "lsdir_weight":         0.85,
     "texture_weight":       0.15,
 
