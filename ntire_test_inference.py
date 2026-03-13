@@ -35,7 +35,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # ═════════════════════════════════════════════════════════════════════════════
-# CONFIGURATION — UPDATE THESE PATHS FOR YOUR LAMBDA INSTANCE
+# CONFIGURATION — UPDATE THESE PATHS
 # ═════════════════════════════════════════════════════════════════════════════
 
 CONFIG = {
@@ -44,7 +44,6 @@ CONFIG = {
     "residual_model_path": "ntire_refiner_v7.1.keras",
 
     # ── Directories ───────────────────────────────────────────────────────
-    # "input_dir":           "/home/ubuntu/LSDIR_DIV2K_Test_Sigma50",
     "input_dir":           "test_image",
     "output_base_res":     "denoised_base_res",   # base + residual output
     "log_path":            "denoising_log.txt",
