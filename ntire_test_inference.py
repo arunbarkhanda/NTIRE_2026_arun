@@ -1,29 +1,10 @@
 """
 NTIRE 2026 — Batch Inference
 =====================================
-Denoises images and saves TWO output folders:
-  1. denoised_base_only/   — base model output
-  2. denoised_base_res/    — base + residual refiner output
-
-Usage on Lambda:
-  # 1. Upload script + models + noisy images
-  # 2. Install deps (system Python, no venv)
-  #   pip install pillow "numpy<2.0"
-
-  # 3. Launch in background
-  nohup python3 ntire_lambda_inference.py > inference.log 2>&1 &
-
-  # 4. Monitor
-  tail -f inference.log
-
-  # 5. Check GPU
-  nvidia-smi
-
-  # 6. When done, download both folders denoised_base_only and denoised_base_res
+Denoises images and saves TWO output folder denoised_base_res/
 """
 
 import os
-# os.environ["TF_USE_LEGACY_KERAS"] = "1"
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 import time
