@@ -1,8 +1,8 @@
 Testing Phase Results: https://drive.google.com/drive/folders/13tYDPmuVwpwnxouy3S-4oCuQeqVWYlT5?usp=sharing
 
-Base Model: https://drive.google.com/file/d/1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80/view?usp=sharing
+Base Denoise Model (05_base_denoise_unet.keras): https://drive.google.com/file/d/1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80/view?usp=sharing
 
-Refiner Model: https://drive.google.com/file/d/1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ/view?usp=sharing
+Residual Refiner Model (05_residual_refiner.keras): https://drive.google.com/file/d/1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ/view?usp=sharing
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -89,8 +89,8 @@ pip install tensorflow pillow numpy gdown
 # Download them into the root directory of the repository:
 
 pip install gdown
-gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80"   # ntire_unet_v7.keras (base model)
-gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"   # ntire_refiner_v7.1.keras (refiner model)
+gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80"   # ntire_unet_v7.keras (base denoise model)
+gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"   # ntire_refiner_v7.1.keras (residual refiner model)
 
 # Or see model_zoo/MODEL_DOWNLOAD.md for full instructions
 
