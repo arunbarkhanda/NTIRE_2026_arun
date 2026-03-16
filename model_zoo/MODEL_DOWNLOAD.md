@@ -1,6 +1,6 @@
 # Model Zoo — Team: 05 Variational Vision
 
-This folder contains instructions for downloading the pretrained model weights 
+This file contains instructions for downloading the pretrained models
 used in the two-stage denoising pipeline.
 
 Due to GitHub file size limits, the pretrained models are on Google Drive.
@@ -12,11 +12,10 @@ Install gdown if not already installed:
 pip install gdown
 ```
 
-Download both models into this folder:
+# Run from the root of the repository:
 ```bash
-cd model_zoo/
-gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80"  # 05_base_denoise_unet.keras (Base Attention U-Net)
-gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"  # 05_residual_refiner.keras (Residual Refiner)
+gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80" -O model_zoo/05_base_denoise_unet.keras
+gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras
 ```
 
 ## Model Details
