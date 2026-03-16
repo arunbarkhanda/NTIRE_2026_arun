@@ -49,7 +49,7 @@ NTIRE_2026_arun/
 ├── model_zoo/
 │   └── MODEL_DOWNLOAD.md                    # Model download instructions
 │
-├── models/
+├── models/ 
 │   ├── 05_precompute_den1_for_residual_training.py
 │   ├── 05_train_base_denoise.py
 │   └── 05_train_base_residual.py
@@ -61,6 +61,31 @@ NTIRE_2026_arun/
 ├── LICENSE
 └── README.md
 ```
+--------------------------------------------------------------------------------------------------------------
+
+## Folder Description
+
+### factsheet/
+Contains the official NTIRE challenge submission factsheet.
+- `variational_vision_factsheet.pdf` — compiled PDF submitted to the challenge organizers
+- `variational_vision_tex.zip` — LaTeX source files used to generate the factsheet
+
+### model_zoo/
+Contains instructions for downloading pretrained model weights.
+- `MODEL_DOWNLOAD.md` — commands to download the base denoising model and residual refinement model from Google Drive
+
+### models/
+Contains the training scripts used to train the two-stage denoising pipeline.
+- `05_train_base_denoise.py` — training script for the base Attention U-Net denoiser
+- `05_precompute_den1_for_residual_training.py` — precomputes base model outputs for efficient residual training
+- `05_train_base_residual.py` — training script for the residual refinement network
+
+### test_image/
+Contains a sample noisy image used to demonstrate the inference pipeline.
+
+### test_inference.py
+Main inference script used to reproduce the final denoising results. Loads the pretrained models, performs patch-based inference with Gaussian blending and 8-way test-time augmentation, and saves
+
 --------------------------------------------------------------------------------------------------------------
 
 ## Environment Used
