@@ -8,7 +8,7 @@ Residual Refiner Model (05_residual_refiner.keras): https://drive.google.com/fil
 
 # NTIRE 2026 Image Denoising Challenge
 
-**Team:** Variational Vision  
+**Team:** 05 Variational Vision  
 **CodaBench:** arunbarkhanda  
 **Team Leader:** Arun Barkhanda  
 **Affiliation:** Clarkson University  
