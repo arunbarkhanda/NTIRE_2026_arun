@@ -129,7 +129,7 @@ CONFIG = {
 Then run:
 
 ```bash
-python ntire_test_inference.py
+python test_inference.py
 ```
 
 The script will:
