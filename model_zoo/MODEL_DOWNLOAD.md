@@ -21,8 +21,8 @@ gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"  # 05_residual_refiner.keras (Residual
 
 ## Model Details
 
-| File | Description | Size |
-|------|-------------|------|
+| File | Description |
+|------|-------------|
 | `05_base_denoise_unet.keras` | Base Attention U-Net  |
 | `05_residual_refiner.keras` | Residual Refiner |
 
