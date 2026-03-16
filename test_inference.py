@@ -40,8 +40,8 @@ warnings.filterwarnings("ignore")
 
 CONFIG = {
     # ── Models ────────────────────────────────────────────────────────────
-    "base_model_path":     "ntire_unet_v7.keras",
-    "residual_model_path": "ntire_refiner_v7.1.keras",
+    "base_model_path":     "model_zoo/05_base_denoise_unet.keras",
+    "residual_model_path": "model_zoo/05_residual_refiner.keras",
 
     # ── Directories ───────────────────────────────────────────────────────
     # "input_dir":           "/home/ubuntu/LSDIR_DIV2K_Test_Sigma50",
