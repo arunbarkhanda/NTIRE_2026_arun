@@ -17,7 +17,7 @@ Refiner Model: https://drive.google.com/file/d/1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ
 
 ## Overview
 
-This repository contains the inference code and pretrained models for our submission to the NTIRE 2026 Image Denoising Challenge (\u03c3 = 50).
+This repository contains the inference code and pretrained models for our submission to the NTIRE 2026 Image Denoising Challenge (noise level = 50).
 
 Our method uses a two-stage denoising framework:
 1. **Base Attention U-Net** for initial image denoising
@@ -43,15 +43,21 @@ Inference uses:
 ```
 NTIRE_2026_arun/
 ├── factsheet/
-│   ├── NTIRE_2026_Image_Denoising.pdf               # Compiled factsheet (PDF)
-│   └── factsheet_base_residual.tex                  # LaTeX source file
+│   ├── variational_vision_factsheet.pdf     # Compiled factsheet (PDF)
+│   └── variatioanl_vision_tex.zip           # LaTeX source files
 │
-├── training/
-│   ├── base_denoise.py                              # Training script for base Attention U-Net
-│   ├── precompute_den1_for_residual_training.py     # Precomputes base model outputs for residual training
-│   └── train_base_residual.py                       # Training script for residual refinement network
+├── model_zoo/
+│   └── MODEL_DOWNLOAD.md                    # Model download instructions
 │
-├── ntire_test_inference.py                          # Main inference script
+├── models/
+│   ├── 05_precompute_den1_for_residual_training.py
+│   ├── 05_train_base_denoise.py
+│   └── 05_train_base_residual.py
+│
+├── test_image/
+│   └── 0000082.png                          # Sample test image
+│
+├── ntire_test_inference.py                  # Main inference script
 ├── LICENSE
 └── README.md
 ```
@@ -79,11 +85,14 @@ cd NTIRE_2026_arun
 pip install tensorflow pillow numpy gdown
 
 # 3. Download pretrained models
+# Due to GitHub size limits, pretrained models are hosted on Google Drive.
+# Download them into the root directory of the repository:
+
+pip install gdown
 gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80"   # ntire_unet_v7.keras (base model)
 gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"   # ntire_refiner_v7.1.keras (refiner model)
-```
 
-Place both `.keras` files in the root directory of the repository.
+# Or see model_zoo/MODEL_DOWNLOAD.md for full instructions
 
 --------------------------------------------------------------------------------------------------------------
 
