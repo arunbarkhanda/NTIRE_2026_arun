@@ -99,7 +99,7 @@ gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras
 
     • Images should be in **PNG format, RGB**
     • Any resolution is supported (patch-based inference handles large images)
-    • Place noisy input images in the directory specified in the CONFIG section of the script:
+    • Place noisy input images in the directory specified in the CONFIG section of `test_inference.py:
 
 ```python
 "input_dir": "/path/to/noisy/images/folder"
