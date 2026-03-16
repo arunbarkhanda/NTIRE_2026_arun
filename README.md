@@ -92,8 +92,7 @@ gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80" -O model_zoo/05_base_denoise_unet.kera
 gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras   # residual refiner model
 ```
 
-# Or see model_zoo/MODEL_DOWNLOAD.md for full instructions
-
+> See `model_zoo/MODEL_DOWNLOAD.md` for full instructions.
 --------------------------------------------------------------------------------------------------------------
 
 ## Input Data Format
