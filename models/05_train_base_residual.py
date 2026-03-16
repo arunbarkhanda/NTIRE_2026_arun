@@ -1,5 +1,5 @@
 """
-train_base_residual.py
+05_train_base_residual.py
 ===========================
 Trains the residual directly from precomputed .npz cache.
 Run precompute_den1.py first to build the cache.
@@ -9,7 +9,7 @@ Pipeline:
   → augment (train only: flip + rot90)
   → wrapper: den2 = clip(den1 + res_model(den1), 0, 1)
   → MSE loss vs clean
-  → save res_model only
+  → save res_model
 """
 
 import os
