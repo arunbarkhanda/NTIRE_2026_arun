@@ -113,8 +113,8 @@ pip install tensorflow pillow numpy gdown
 # Due to GitHub size limits, pretrained models are hosted on Google Drive.
 # Download them into the root directory of the repository:
 
-gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80" -O model_zoo/05_base_denoise_unet.keras  # base denoise model
-gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras   # residual refiner model
+gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80" -O model_zoo/05_base_denoise_unet.keras
+gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras
 ```
 
 > See `model_zoo/MODEL_DOWNLOAD.md` for full instructions.
