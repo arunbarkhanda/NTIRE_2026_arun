@@ -57,7 +57,7 @@ NTIRE_2026_arun/
 ├── test_image/
 │   └── 0000082.png                          # Sample test image
 │
-├── ntire_test_inference.py                  # Main inference script
+├── test_inference.py                  # Main inference script
 ├── LICENSE
 └── README.md
 ```
@@ -109,7 +109,7 @@ gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras
 
 ## Running Inference
 
-Update the paths in the `CONFIG` section at the top of `ntire_test_inference.py` to match your local setup:
+Update the paths in the `CONFIG` section at the top of `test_inference.py` to match your local setup:
 
 ```python
 CONFIG = {
