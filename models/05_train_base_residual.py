@@ -2,7 +2,7 @@
 05_train_base_residual.py
 ===========================
 Trains the residual directly from precomputed .npz cache.
-Run precompute_den1.py first to build the cache.
+Run 05_precompute_den1_for_residual_training.py first to build the cache.
 
 Pipeline:
   Load (den1, clean) from .npz files
