@@ -23,8 +23,8 @@ gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"  # 05_residual_refiner.keras (Residual
 
 | File | Description | Size |
 |------|-------------|------|
-| `05_base_denoise_unet.keras` | Base Attention U-Net (ntire_unet_v7) |
-| `05_residual_refiner.keras` | Residual Refiner (ntire_refiner_v7.1) |
+| `05_base_denoise_unet.keras` | Base Attention U-Net  |
+| `05_residual_refiner.keras` | Residual Refiner |
 
 ## Notes
 - Models are in TensorFlow/Keras format (.keras)
