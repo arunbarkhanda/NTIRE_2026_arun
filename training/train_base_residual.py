@@ -9,7 +9,7 @@ Pipeline:
   → augment (train only: flip + rot90)
   → wrapper: den2 = clip(den1 + res_model(den1), 0, 1)
   → MSE loss vs clean
-  → save res_model only
+  → save res_model
 """
 
 import os
