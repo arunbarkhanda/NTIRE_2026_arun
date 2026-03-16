@@ -88,9 +88,9 @@ pip install tensorflow pillow numpy gdown
 # Due to GitHub size limits, pretrained models are hosted on Google Drive.
 # Download them into the root directory of the repository:
 
-pip install gdown
-gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80"   # ntire_unet_v7.keras (base denoise model)
-gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ"   # ntire_refiner_v7.1.keras (residual refiner model)
+gdown "1PbDAGqiGrwE_VmKxPDKfJVSLArwrQE80" -O model_zoo/05_base_denoise_unet.keras  # base denoise model
+gdown "1Dou9LGloFVxNPc5zXSHqN6TX8VOHrEQQ" -O model_zoo/05_residual_refiner.keras   # residual refiner model
+```
 
 # Or see model_zoo/MODEL_DOWNLOAD.md for full instructions
 
@@ -114,8 +114,8 @@ Update the paths in the `CONFIG` section at the top of `ntire_test_inference.py`
 
 ```python
 CONFIG = {
-    "base_model_path":     "ntire_unet_v7.keras",
-    "residual_model_path": "ntire_refiner_v7.1.keras",
+    "base_model_path":     "model_zoo/05_base_denoise_unet.keras",
+    "residual_model_path": "model_zoo/05_residual_refiner.keras",
     "input_dir":           "/path/to/noisy/images/folder",
     "output_base_res":     "denoised_base_res",
     "patch_size":  96,
