@@ -1,6 +1,4 @@
 """
-precompute_den1.py
-==================
 Run ONCE before training. Computes den1 = base_model(noisy) for every patch
 and saves (den1, clean) pairs to disk as .npz files.
 
